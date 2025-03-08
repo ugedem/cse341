@@ -3,7 +3,7 @@ const router = express.Router();
 const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
-const uri = process.env.MONGODB_URI; // Corrected variable name
+const uri = process.env.MONGODB_URI; 
 const client = new MongoClient(uri);
 
 async function connectToDatabase() {
@@ -35,7 +35,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST new contact (Added this part)
+// POST new contact 
 router.post('/', async (req, res) => {
     const contacts = await connectToDatabase();
     const newContact = req.body;
