@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 
 // ✅ CORS Middleware - Improved for security and flexibility
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://your-render-app.onrender.com'],  // Use specific URLs for better security
+    origin: ['http://localhost:3000', 'https://contacts-api-k0dw.onrender.com/'],  // Use specific URLs for better security
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -33,11 +33,11 @@ const options = {
         },
         servers: [
             {
-                url: `https://your-render-app.onrender.com`, // Updated to match your deployed app URL
+                url: `https://contacts-api-k0dw.onrender.com/`, // Updated to match your deployed app URL
                 description: 'Production Server'
             },
             {
-                url: `http://localhost:${PORT}`,
+                url: `http://localhost:${PORT}/`,
                 description: 'Development Server'
             }
         ]

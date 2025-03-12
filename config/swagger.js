@@ -11,7 +11,7 @@ const options = {
             contact: {
                 name: 'Aaron Edem',
                 email: 'aaronedem17@gmail.com',
-                url: 'https://github.com/aaronedem17' // Optional for better visibility
+                url: 'https://github.com/ugedem/'
             },
             license: {
                 name: 'MIT & Open Source',
@@ -22,6 +22,10 @@ const options = {
             {
                 url: 'http://localhost:3000',
                 description: 'Development Server'
+            },
+            {
+                url: 'https://contacts-api-k0dw.onrender.com/', // Add your Render URL
+                description: 'Production Server'
             }
         ],
         components: {
@@ -30,35 +34,13 @@ const options = {
                     type: 'object',
                     required: ['firstName', 'lastName', 'email'],
                     properties: {
-                        _id: {
-                            type: 'string',
-                            description: 'Auto-generated ID of the contact'
-                        },
-                        firstName: {
-                            type: 'string',
-                            description: 'First name of the contact'
-                        },
-                        lastName: {
-                            type: 'string',
-                            description: 'Last name of the contact'
-                        },
-                        email: {
-                            type: 'string',
-                            description: 'Email address of the contact'
-                        },
-                        phone: {
-                            type: 'string',
-                            description: 'Phone number of the contact'
-                        },
-                        favoriteColor: {
-                            type: 'string',
-                            description: 'Favorite color of the contact'
-                        },
-                        birthday: {
-                            type: 'string',
-                            format: 'date',
-                            description: 'Birthday of the contact'
-                        }
+                        _id: { type: 'string', description: 'Auto-generated ID of the contact' },
+                        firstName: { type: 'string', description: 'First name of the contact' },
+                        lastName: { type: 'string', description: 'Last name of the contact' },
+                        email: { type: 'string', description: 'Email address of the contact' },
+                        phone: { type: 'string', description: 'Phone number of the contact' },
+                        favoriteColor: { type: 'string', description: 'Favorite color of the contact' },
+                        birthday: { type: 'string', format: 'date', description: 'Birthday of the contact' }
                     },
                     example: {
                         firstName: 'Precious',
@@ -78,6 +60,14 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 const swaggerDocs = (app, port) => {
+    // Add CORS middleware for Swagger
+    app.use('/api-docs', (req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        next();
+    });
+
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
     console.log(`Swagger documentation available at http://localhost:${port}/api-docs`);
 };
