@@ -5,6 +5,15 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+const cors = require('cors');
+
+// Enable CORS for all routes
+app.use(cors({
+    origin: '*',  // Or specify your frontend URL for better security
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Swagger setup
 const options = {
     definition: {
