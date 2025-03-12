@@ -2,14 +2,14 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors'); // Ensure this is imported at the top
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const cors = require('cors');
-
-// Enable CORS for all routes
+// ✅ CORS Middleware - Improved for security and flexibility
 app.use(cors({
-    origin: '*',  // Or specify your frontend URL for better security
+    origin: ['http://localhost:3000', 'https://your-render-app.onrender.com'],  // Use specific URLs for better security
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -21,16 +21,30 @@ const options = {
         info: {
             title: 'Contacts API',
             version: '1.0.0',
-            description: 'API for managing contacts'
+            description: 'API for managing contacts',
+            contact: {
+                name: 'Aaron Edem',
+                email: 'aaronedem17@gmail.com'
+            },
+            license: {
+                name: 'MIT',
+                url: 'https://opensource.org/licenses/MIT'
+            }
         },
         servers: [
             {
-                url: `http://localhost:${PORT}`
+                url: `https://your-render-app.onrender.com`, // Updated to match your deployed app URL
+                description: 'Production Server'
+            },
+            {
+                url: `http://localhost:${PORT}`,
+                description: 'Development Server'
             }
         ]
     },
     apis: ['./routes/*.js']
 };
+
 const specs = swaggerJsDoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
