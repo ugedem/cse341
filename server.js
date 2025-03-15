@@ -6,13 +6,7 @@ const cors = require('cors'); // Ensure this is imported at the top
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-
-// ✅ CORS Middleware - Improved for security and flexibility
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://contacts-api-k0dw.onrender.com/'],  // Use specific URLs for better security
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors());
 
 // Swagger setup
 const options = {
@@ -33,13 +27,9 @@ const options = {
         },
         servers: [
             {
-                url: `https://contacts-api-k0dw.onrender.com/`, // Updated to match your deployed app URL
+                url: `https://contacts-api-k0dw.onrender.com/`,
                 description: 'Production Server'
             },
-            {
-                url: `http://localhost:${PORT}/`,
-                description: 'Development Server'
-            }
         ]
     },
     apis: ['./routes/*.js']

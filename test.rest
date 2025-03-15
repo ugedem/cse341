@@ -1,20 +1,20 @@
 ### Get All Contacts
-GET http://localhost:3000/contacts
+GET https://contacts-api-k0dw.onrender.com/contacts
 
 ### Get Contact by ID - Precious Aaron
-GET http://localhost:3000/contacts/67cc98aabe1ebd2297eca158
+GET https://contacts-api-k0dw.onrender.com/contacts/67cc98aabe1ebd2297eca158
 
 ### Get Contact by ID - Adebayo Oluwaseun
-GET http://localhost:3000/contacts/67d0ae1ab81e42f9ae6ac5ab
+GET https://contacts-api-k0dw.onrender.com/contacts/67d0ae1ab81e42f9ae6ac5ab
 
 ### Get Contact by ID - Zainab Abdullahi
-GET http://localhost:3000/contacts/67d0ae6eb81e42f9ae6ac5ad
+GET https://contacts-api-k0dw.onrender.com/contacts/67d0ae6eb81e42f9ae6ac5ad
 
 ### Get Contact by ID - Tunde Akinwale
-GET http://localhost:3000/contacts/67d0ae91b81e42f9ae6ac5ae
+GET https://contacts-api-k0dw.onrender.com/contacts/67d0ae91b81e42f9ae6ac5ae
 
 ### Create New Contact
-POST http://localhost:3000/contacts
+POST https://contacts-api-k0dw.onrender.com/contacts
 Content-Type: application/json
 
 {
@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Update Contact - Precious Aaron
-PUT http://localhost:3000/contacts/67cc98aabe1ebd2297eca158
+PUT https://contacts-api-k0dw.onrender.com/contacts/67cc98aabe1ebd2297eca158
 Content-Type: application/json
 
 {
@@ -38,4 +38,4 @@ Content-Type: application/json
 }
 
 ### Delete Contact - Tunde Akinwale
-DELETE http://localhost:3000/contacts/67d0ae91b81e42f9ae6ac5ae
+DELETE https://contacts-api-k0dw.onrender.com/contacts/67d0ae91b81e42f9ae6ac5ae

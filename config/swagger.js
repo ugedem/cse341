@@ -11,7 +11,7 @@ const options = {
             contact: {
                 name: 'Aaron Edem',
                 email: 'aaronedem17@gmail.com',
-                url: 'https://github.com/ugedem/'
+                url: 'https://github.com/ugedem' 
             },
             license: {
                 name: 'MIT & Open Source',
@@ -20,11 +20,7 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
-                description: 'Development Server'
-            },
-            {
-                url: 'https://contacts-api-k0dw.onrender.com/', // Add your Render URL
+                url: 'https://contacts-api-k0dw.onrender.com', 
                 description: 'Production Server'
             }
         ],
@@ -60,7 +56,8 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 const swaggerDocs = (app, port) => {
-    // Add CORS middleware for Swagger
+
+    // CORS headers for Swagger
     app.use('/api-docs', (req, res, next) => {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -69,7 +66,7 @@ const swaggerDocs = (app, port) => {
     });
 
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
-    console.log(`Swagger documentation available at http://localhost:${port}/api-docs`);
+    console.log(`Swagger documentation available at https://contacts-api-k0dw.onrender.com/api-docs`);
 };
 
 module.exports = swaggerDocs;
