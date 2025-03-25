@@ -1,12 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const connectDB = require('./config/database');
 const itemRoutes = require('./routes/itemRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger.json');
-
-require('dotenv').config();
-
 const app = express();
 
 // Middleware
