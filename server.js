@@ -15,6 +15,9 @@ app.use(express.json());
 // Swagger Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+// Log MongoDB URI for debugging
+console.log("Mongo URI:", process.env.MONGO_URI);
+
 // Connect to database
 connectDB();
 
