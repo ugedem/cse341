@@ -1,25 +1,24 @@
 const express = require("express");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
-// 🔹 Start GitHub OAuth
+// Route to start GitHub OAuth login
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
 
-// 🔹 GitHub OAuth Callback
-router.get("/github/callback", 
-  passport.authenticate("github", { session: false }), 
+// GitHub OAuth callback route
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    failureRedirect: "/login-failed",
+    session: false,
+  }),
   (req, res) => {
-    if (!req.user) {
-      return res.status(401).json({ error: "Authentication failed" });
-    }
-
-    // 🔹 Extract user and token
-    const { user, token } = req.user;
-
-    // 🔹 Send token to frontend
-    res.json({ user, token });
+    // Successfully authenticated, send token or user details
+    res.json({
+      message: "Login successful!",
+      user: req.user,
+    });
   }
 );
 
