@@ -1,42 +1,36 @@
-require('dotenv').config();
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const passport = require("passport");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
+const connectDB = require("./config/database");
 
-const express = require('express');
-const connectDB = require('./config/database');
-const itemRoutes = require('./routes/itemRoutes');
-const categoryRoutes = require('./routes/categoryRoutes');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./docs/swagger.json');
+// Import Routes
+const authRoutes = require("./routes/authRoutes");
+const itemRoutes = require("./routes/itemRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
+const authenticateJWT = require("./middleware/authMiddleware"); // Middleware
 
+// Initialize Express App
 const app = express();
-
-// Middleware
 app.use(express.json());
+app.use(cors());
+app.use(passport.initialize());
 
-// Root Route - Prevents "Cannot GET /" error
-app.get('/', (req, res) => {
-    res.send('Welcome to the CRUD API! Visit <a href="/api-docs">API Documentation</a> for details.');
-});
-
-// Swagger Documentation
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-// Log MongoDB URI for debugging (optional, for troubleshooting only)
-if (!process.env.MONGO_URI) {
-    console.error("❌ MONGO_URI is not defined. Please check your environment variables.");
-    process.exit(1);
-} else {
-    console.log("✅ Mongo URI detected");
-}
-
-// Connect to database
+// Connect to Database
 connectDB();
 
-// Routes
-app.use('/api/items', itemRoutes);
-app.use('/api/categories', categoryRoutes);
+// Initialize GitHub OAuth
+require("./config/passportConfig");
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`✅ Server is running on port ${PORT}`);
-});
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/items", authenticateJWT, itemRoutes); // Protect Item Routes
+app.use("/api/categories", authenticateJWT, categoryRoutes); // Protect Category Routes
+
+// Swagger API Documentation
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
