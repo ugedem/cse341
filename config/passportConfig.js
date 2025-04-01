@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:10000/auth/github/callback",
+      callbackURL: "https://cse341-tdwz.onrender.com/api-docs/auth/github/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       // Here you should check if the user exists in the database, if not, create them
