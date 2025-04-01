@@ -16,6 +16,13 @@ const categoryRoutes = require("./routes/categoryRoutes");
 
 const app = express();
 
+// ✅ Ensure JWT_SECRET is present
+const jwtSecret = process.env.JWT_SECRET;
+if (!jwtSecret) {
+  console.error("❌ JWT_SECRET is missing. Please add it to your environment variables.");
+  process.exit(1); // Exit the app if JWT_SECRET is missing
+}
+
 // ✅ CORS Configuration
 const allowedOrigins = ["http://localhost:10000", "https://cse341-tdwz.onrender.com"];
 app.use(
@@ -56,7 +63,7 @@ const authenticateJWT = (req, res, next) => {
     return res.status(403).json({ message: "No token provided" });
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, jwtSecret, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid or expired token" });
     }
